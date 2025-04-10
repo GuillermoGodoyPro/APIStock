@@ -1,4 +1,5 @@
 using APIStock.Context;
+using APIStock.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 // TODO: Controllers Services 
-
+builder.Services.AddScoped<ProductoService>();
+builder.Services.AddScoped<CategoriaService>();
 
 var app = builder.Build();
 
