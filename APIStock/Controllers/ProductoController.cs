@@ -26,5 +26,57 @@ namespace APIStock.Controllers
             return Ok(await _productoService.Lista());
         }
 
+        [HttpGet]
+        [Route("buscar/{id}")]
+        public async Task<ActionResult<ProductoDTO>> Get(int id)
+        {
+
+            var producto = await _productoService.ListarUno(id);
+            if (producto is null)
+            {
+                return NotFound();
+            }
+            return Ok(producto);
+        }
+
+        [HttpPost]
+        [Route("guardar")]
+        public async Task<ActionResult<ProductoDTO>> Post(ProductoDTO productoDTO)
+        {
+            var producto = await _productoService.GuardarProducto(productoDTO);
+            if (producto is null)
+            {
+                return NotFound();
+            }
+            return Ok("Producto guardado");
+
+        }
+
+        [HttpPut]
+        [Route("editar")]
+        public async Task<ActionResult<ProductoDTO>> Put(ProductoDTO productoDTO)
+        {
+            var producto = await _productoService.EditarProducto(productoDTO);
+            if (producto is null)
+            {
+                return NotFound();
+            }
+            return Ok(productoDTO);
+
+        }
+
+        [HttpDelete]
+        [Route("eliminar/{id}")]
+        public async Task<ActionResult<ProductoDTO>> Delete(int id)
+        {
+            var producto = await _productoService.EliminarProducto(id);
+            if (producto == false)
+            {
+                return NotFound();
+            }
+            return Ok("Producto eliminado");
+        }
+
+
     }
 }
